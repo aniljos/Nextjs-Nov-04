@@ -5,9 +5,6 @@ type MessageProps = {
 
 
 function Message(props: MessageProps){
-
-
-   
     return (
         <div>
             <h4 style={{color: props.color}}>Message: {props.text}</h4>

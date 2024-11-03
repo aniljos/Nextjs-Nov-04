@@ -1,3 +1,4 @@
+import Counter from "@/components/Counter";
 import Message from "@/components/Message";
 
 export default function Home() {
@@ -8,6 +9,9 @@ export default function Home() {
 
         <Message text="React" color="blue"/>
         <Message text="JSX" color="green"/>
+
+        <Counter initialValue={5}/>
+        <Counter initialValue={20}/>
     </div>
   );
 }
