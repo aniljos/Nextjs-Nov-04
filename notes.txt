@@ -1,0 +1,72 @@
+
+
+
+package.json: npm config file: dependencies(prod, dev), scripts, project details(name, version)
+tsconfig.json: Typescript compiler config
+next.config.mjs: Next.js config file: customize the nextjs frameworks
+eslintrc.json: eslint config
+
+src: optional folder for source code
+public: any static content(css, images, icon)
+node_modules: all installed dependencies
+
+
+routing
+	Nextjs there are 2 routing mechansims
+		app router: latest, app folder
+		pages router: legacy, pages folder
+		
+app router
+	layout.tsx: This is the root component, defines the application layout
+	page.tsx: the page to be displayed on the root(home) route(http://localhost:3001/)
+	
+props
+	A way to paramertize a component
+	props is always an object
+	In Typescript we define the structure on the props: type, interface, class
+	
+event handling
+	html
+		<button onclick="foo();"></button>
+	react
+		<button onClick={foo}></button>
+		
+components in Nextjs 13 onwards(App Router)
+	All components are server components by default
+	To create a client component use a directive call 'use client'
+	If interactivity(handle events on the client), access browser features(localstorage, window, document)
+		-create client components
+		
+useState:
+	This a function:
+		Takes the initial value
+		Returns is an array with 2 elements: First element is a variable that holds the state,
+		Seconf element is a function to update the state
+	State updates are asynchronous
+	State updates are batched
+		 counter: 5 => setCounter(counter + 1); => setCounter(6);
+		 counter: 5 => setCounter(counter + 1); => setCounter(6);
+	setState method: change/update the state
+		Two overloads
+			setState(updatedValue)
+			setState(callback) => callback (prevValue) => {return the updatedValue}
+			
+			 counter: 5 => setCounter(pCounter => pCounter + 1);; => setCounter(invoke the callback);
+			counter: 5 => setCounter(pCounter => pCounter + 1); => setCounter(invoke the callback);
+
+
+Form fields
+	Controlled input : useState hook, value and the onChange/onSelect/onChecked event
+	Uncontrolled input: useRef hook
+	
+useRef
+	Hook that a returns a mutable reference
+	Used to reference to any HTML element: access the propertiens and functions the element
+	
+useEffect
+	useEffect(callback, [list of dependencies])
+	Whenever the dependencies change the callback in invoked
+	
+	mount : useEffect(callback, [empty dependencies])
+	update
+	unmouted
