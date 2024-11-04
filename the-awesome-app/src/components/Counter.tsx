@@ -1,6 +1,7 @@
 'use client'
 
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useRef, useState} from 'react';
+import Message from './Message';
 
 type CounterProps = {
     initialValue: number
@@ -9,6 +10,9 @@ type CounterProps = {
 function Counter(props: CounterProps) {
 
     const [counter, setCounter] = useState(props.initialValue);
+    //const [value, setValue] = useState(0);
+
+    const inputRef = useRef<HTMLInputElement>(null);
 
     function inc() {
         
@@ -33,6 +37,18 @@ function Counter(props: CounterProps) {
         setCounter(Number(value));
     }
 
+    function handleUpdate(){
+       // setCounter(value);
+        //setValue(0);
+
+        console.log("inputRef", inputRef);
+        setCounter(Number( inputRef.current?.value));
+        if(inputRef.current?.value){
+            inputRef.current.value = "0"
+        }
+       
+    }
+
     return (
         <div>
             <h4>Counter: {counter}</h4>
@@ -43,6 +59,18 @@ function Counter(props: CounterProps) {
             <div>
                 Counter: <input placeholder='Counter' type='number' value={counter} onChange={handleChange}/>
             </div>
+
+            <div>
+                {/* Update Counter: <input type='number' value={value} onChange={e => setValue(Number(e.target.value))}/> &nbsp; */}
+                Update Counter: <input ref={inputRef} type='number' /> &nbsp;
+                <button onClick={handleUpdate}>Update</button>
+            </div>
+
+
+            <br/>
+            {counter >= 7 ?  <Message text={"Ctr: " + counter} color='blue' /> : null}
+
+            
         </div>
     )
 }
