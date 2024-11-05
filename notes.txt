@@ -113,5 +113,19 @@ Excercise/Assignment: Complete the EditProductPage
 	3. Handle the save and cancel event
 	4. Save to the backend
 		PUT http://localhost:9000/products/{id} => product
+	5. Navigate back to products on cancel.
+
+
+State on the client-side
+		localstorage: persistent store provided bythe browser
+		sessionStorage: non-persistent store by the browser
+		
+		Redux, react context: application memory
+		
+Redux
+	store: place where the data is stored(in memory)
+	action: an object. 
+				{type: "update_access_token", token: "abc"}
+				{type: "clear_token"}
 	
 	

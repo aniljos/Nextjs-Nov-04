@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import ReduxProvider from "@/state/redux/ReduxProvider";
 
 
 
@@ -15,6 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+   
+   <ReduxProvider>
     <html lang="en">
       <body>
         <div className="container">
@@ -44,5 +47,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    </ReduxProvider>
   );
 }
