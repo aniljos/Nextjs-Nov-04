@@ -1,0 +1,13 @@
+.product{
+    background-color: cadetblue;
+    border: 1px solid blue;
+    margin: 7px;
+    padding: 7px;
+    border-radius: 10px;
+    height: 270px;
+    width: 280px;
+}
+
+/* .abc{
+    color: black;
+} */

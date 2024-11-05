@@ -1,5 +1,7 @@
 'use client'
-import { MouseEvent, useEffect, useRef, useState } from "react"
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import axios from 'axios';
+import { useRouter } from "next/navigation";
 
 export default function Login(){
 
@@ -7,6 +9,7 @@ export default function Login(){
     const [userName, setUserName] = useState("");
     const [password, setPassowrd] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
 
     useEffect(()=> {
         
@@ -14,13 +17,36 @@ export default function Login(){
 
     }, [])
 
-    function handleLogin(e: MouseEvent<HTMLButtonElement>){
+    async function handleLogin(e: MouseEvent<HTMLButtonElement>){
 
         e.preventDefault();
-
+        //console.log(nameInputRef.current.value)
         if(userName && password){
-            setErrorMessage("");
             
+
+            const url = "http://localhost:9000/login";
+            // axios
+            //     .post(url, {name: userName, password})
+            //     //.then((successCallback, errorCallback)    
+            //     .then((response)=> {
+            //         console.log("success", response)
+            //     }, (errorResponse) => {
+            //         console.log("errorResponse", errorResponse);
+            //     })
+
+            try {
+                
+                const response =  await axios.post(url, {name: userName, password});
+                console.log("success", response);
+                setErrorMessage("");
+                router.push("/");
+
+            } catch (errorResponse) {
+                console.log("errorResponse", errorResponse);
+                setErrorMessage("Invalid credentials");
+            }
+            
+
         }
         else{
             setErrorMessage("Enter the credentials");
@@ -32,7 +58,7 @@ export default function Login(){
         <div>
             <h4>Login</h4>
 
-            {errorMessage ? <div className="alert alert-danger">Enter the credentials</div> : null}
+            {errorMessage ? <div className="alert alert-danger">{errorMessage}</div> : null}
 
             <form>
 
