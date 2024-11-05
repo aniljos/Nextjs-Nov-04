@@ -127,5 +127,12 @@ Redux
 	action: an object. 
 				{type: "update_access_token", token: "abc"}
 				{type: "clear_token"}
+	dispatch: sending(to the reducer) an action to be processed
+	reducer: function that receives the action, process the action and if needed updates the store
+	subscriber: will be notified of changes in the store.
+	
+	libraries: redux, react-redux, @reduxjs/toolkit
+	npm install @reduxjs/toolkit react-redux
+	
 	
 	
