@@ -1,6 +1,6 @@
 'use client'
 
-import {ChangeEvent, useRef, useState} from 'react';
+import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import Message from './Message';
 
 type CounterProps = {
@@ -14,6 +14,20 @@ function Counter(props: CounterProps) {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        console.log("useEffect counter updated", counter);
+        //clean-up
+        return () => {
+            console.log("useEffect counter cleanup", counter);
+        }
+
+
+    }, [counter])
+
+    // useEffect(() => {
+    //     console.log("useEffect with no dep array");
+    // })
+
     function inc() {
         
         //props.initialValue++;
@@ -24,6 +38,8 @@ function Counter(props: CounterProps) {
     
         setCounter(pCounter => pCounter + 1);
         //setCounter(pCounter => pCounter + 1);
+
+        //console.log("counter", counter);
     
     }
 

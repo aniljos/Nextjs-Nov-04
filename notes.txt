@@ -34,7 +34,7 @@ event handling
 components in Nextjs 13 onwards(App Router)
 	All components are server components by default
 	To create a client component use a directive call 'use client'
-	If interactivity(handle events on the client), access browser features(localstorage, window, document)
+	If interactivity(handle events on the client), access browser features(localstorage, window, document), use any of the hooks
 		-create client components
 		
 useState:
@@ -68,5 +68,11 @@ useEffect
 	Whenever the dependencies change the callback in invoked
 	
 	mount : useEffect(callback, [empty dependencies])
-	update
-	unmouted
+		A logic when the component loaded/mounted. 
+		DOM initialization
+		A api call to fetch data/ any other task
+		register any event handlers, 
+		start timers
+	update : 
+	unmouted: callback returned form the useEffect 
+		Clean-up: Cancel an api call, unregister any event handlers, cancel timers

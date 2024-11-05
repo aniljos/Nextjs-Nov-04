@@ -18,6 +18,7 @@ function Message(props: MessageProps){
         }
 
     }, [])
+    
 
     return (
         <div>
