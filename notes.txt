@@ -53,6 +53,9 @@ useState:
 			
 			 counter: 5 => setCounter(pCounter => pCounter + 1);; => setCounter(invoke the callback);
 			counter: 5 => setCounter(pCounter => pCounter + 1); => setCounter(invoke the callback);
+	state should always be treated as immutable, to change the state, create a copy of the current state, make changes to the copy 
+	and then update the copy using the setState method
+	
 
 
 Form fields
@@ -76,3 +79,39 @@ useEffect
 	update : 
 	unmouted: callback returned form the useEffect 
 		Clean-up: Cancel an api call, unregister any event handlers, cancel timers
+		
+API calls
+	Browser: XMLHttpRequest(xhr) and fetch api(HTML5)
+	XMLHttpRequest: low level
+	
+	axios: open source library
+	fetch: W3C 
+	
+	promise object
+		To handle a promise use the "then" method
+		Another way to handle a promise is to use the async/await 
+	async/await
+		simplifies the api calls
+		async calls will look synchrous calls
+	status
+		100 - Information
+		200 - 200, 201 -- success
+		300 - Redirect
+		
+		400 - 400,401, 403,404 - client error
+		500 - 500, 503 - server error
+		
+css
+	class attribute ==> css classes
+	style attribute  ==> css 
+	
+	
+Excercise/Assignment: Complete the EditProductPage
+	1. Populate the data into the input fields
+		GET http://localhost:9000/products/{id}
+	2. Bindings of the state to the input fields (value, onChange)
+	3. Handle the save and cancel event
+	4. Save to the backend
+		PUT http://localhost:9000/products/{id} => product
+	
+	
