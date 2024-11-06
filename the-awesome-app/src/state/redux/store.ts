@@ -12,7 +12,11 @@ const combinedReducer = combineReducers({
 //store
 export const store = configureStore({
     reducer: combinedReducer,
-    devTools: true
+    devTools: true,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+          serializableCheck: false,
+        }),
 });
 
 

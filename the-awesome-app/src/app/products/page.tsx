@@ -1,20 +1,27 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Product } from "@/model/Product";
-import classes from './page.module.css';
+//import classes from './page.module.css';
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { AppState } from "@/state/redux/store";
+import ProductView from "@/components/ProductView";
 
 
-//const baseUrl = "http://localhost:9000/products";
-const baseUrl = "http://localhost:9000/secure_products";
+const baseUrl = "http://localhost:9000/products";
+//const baseUrl = "http://localhost:9000/secure_products";
+
+
+
 
 export default function ListProducts() {
 
+    
     const [products, setProducts] = useState<Product[]>([]);
+    const [isMessageVisible, setMessageVisible] = useState(false);
+
     const router = useRouter();
 
     const auth = useSelector((reduxState: AppState) => reduxState.auth);
@@ -28,10 +35,10 @@ export default function ListProducts() {
 
         try {
 
-            if(!auth?.isAuthenticated){
-                router.push("/login");
-                return;
-            }
+            // if(!auth?.isAuthenticated){
+            //     router.push("/login");
+            //     return;
+            // }
 
             const headers = {Authorization: `Bearer ${auth.accessToken}`};
             const response = await axios.get<Product[]>(baseUrl, {headers});
@@ -44,13 +51,13 @@ export default function ListProducts() {
         }
     }
 
-    async function handleDelete(product: Product){
+    const handleDelete = useCallback( async (product: Product) => {
 
         try {
             
-            if(!auth?.isAuthenticated){
-                return;
-            }
+            // if(!auth?.isAuthenticated){
+            //     return;
+            // }
 
             const headers = {Authorization: `Bearer ${auth.accessToken}`};
             const url = baseUrl + "/" + product.id;
@@ -71,30 +78,39 @@ export default function ListProducts() {
             alert("Failed to delete product with id: " + product.id);
         }
 
-    }
+    }, [products])
 
-    function handleEdit(product: Product){
+    const handleEdit = useCallback( (product: Product)=>{
         
         router.push("/products/" + product.id);
 
-    }
+    }, [])
+
+    const totalPrice = useMemo( () => {
+
+        console.log("calculateTotalPrice...");
+        let totalPrice = 0;
+        products.forEach((product) => {
+            if(product.price)
+                totalPrice += product.price;
+        })
+        return totalPrice;
+
+    }, [products]);
 
     return (
         <div>
             <h4>List Products</h4>
+
+            {isMessageVisible ? <div className="alert alert-info">Totel Price: {totalPrice}</div> : null}
+            <br/>
+            <button className="btn btn-info" onClick={() => setMessageVisible(p => !p)}> {isMessageVisible? "Hide": "Show"}  </button>
+
             <div style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'center'}}>
                 {products.map((product) => {
 
                     return (
-                        <div key={product.id} className={classes.product}>
-                            <p>Id: {product.id}</p>
-                            <p>{product.name}</p>
-                            <p>{product.description}</p>
-                            <p>Price: {product.price}</p>
-
-                            <button className="btn btn-warning" onClick={() => { handleDelete(product)}}>Delete</button>&nbsp;
-                            <button className="btn btn-primary" onClick={() => handleEdit(product)}>Edit</button>
-                        </div>
+                        <ProductView key={product.id} product={product} onDelete={handleDelete} onEdit={handleEdit}/>
                     )
                 })}
             </div>

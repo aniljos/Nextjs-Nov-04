@@ -134,5 +134,52 @@ Redux
 	libraries: redux, react-redux, @reduxjs/toolkit
 	npm install @reduxjs/toolkit react-redux
 	
+	react-redux: Integrates redux with react
+		-Provider
+		- useDispatch : returns a dispatch method
+		- useSelector : returns the state(redux)
+		- useStore: return the store
+		
+	Action creators: Design pattern-a function that creates the action.
+	Middleware: logging, validation
+	Async operations: 
+		- reducer has to be synchronous
+		- use middleware for the async operations
+		- libraries : redux thunk, redux saga
+		
+	@reduxjs/toolkit
+		- Automatically creates the action creators
+		- Allows us to write code treating the state as mutable
+		- simplifies the async middleware usage
+		- lots helpers methods: reducres, slices
+	redux persist
+		retain the data across session,save to the localstorage
+		
+React context
+	use cases are same as that of redux
+	context is a low level api.
+	useContext - access context in a component
+	
+	In redux we have one store, mutiple reducers
+	In context we can create mutiple context
+	
+	When using the context, on updating the context we have ensure the UI rerender(state/props)
+	
+Assignment
+	
+	The replcate the gadget & view-cart using react context.
+	To rerender the UI: useState, useReducer
+	
+Optimization & Design
+
+
+	
+
+	
+	
+		
+		
+	
+	
 	
 	

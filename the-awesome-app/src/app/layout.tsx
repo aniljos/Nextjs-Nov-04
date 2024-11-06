@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
+
 import ReduxProvider from "@/state/redux/ReduxProvider";
+import { AppThemeContextProvider } from "@/state/context/AppThemeContext";
+import AppBar from "@/components/AppBar";
+
 
 
 
@@ -16,43 +19,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   
-   <ReduxProvider>
-    <html lang="en">
-      <body>
-        <div className="container">
-          <nav className="navbar navbar-dark bg-dark">
-            <div className="container-fluid">
-              <Link className="navbar-brand" href="#">React</Link>
-              <ul className="nav">
-                <li className="nav-item">
-                  <Link className="nav-link" href="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/about">About</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/products">Products</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/gadgets">Gadgets</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/viewcart">View Cart</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/login">Login</Link>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <main>
-            {children}
-          </main>
 
-        </div>
-      </body>
-    </html>
-    </ReduxProvider>
+    <AppThemeContextProvider>
+      <ReduxProvider>
+        <html lang="en">
+          <body>
+            <div className="container">
+              <AppBar/>
+              <main>
+                {children}
+              </main>
+
+            </div>
+          </body>
+        </html>
+      </ReduxProvider>
+    </AppThemeContextProvider>
+
   );
 }
