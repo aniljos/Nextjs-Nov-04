@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { AppState } from "@/state/redux/store";
 import ProductView from "@/components/ProductView";
+import { useTitle } from "@/hooks/useTitle";
 
 
 const baseUrl = "http://localhost:9000/products";
@@ -21,15 +22,14 @@ export default function ListProducts() {
     
     const [products, setProducts] = useState<Product[]>([]);
     const [isMessageVisible, setMessageVisible] = useState(false);
-
     const router = useRouter();
-
     const auth = useSelector((reduxState: AppState) => reduxState.auth);
-
     useEffect(() => {
 
         fetchProducts();
     }, []);
+
+    useTitle("Products")
 
     async function fetchProducts() {
 

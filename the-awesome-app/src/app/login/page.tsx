@@ -1,64 +1,18 @@
 'use client'
-import { MouseEvent, useEffect, useRef, useState } from "react";
-import axios from 'axios';
-import { useRouter } from "next/navigation";
-import {useDispatch} from 'react-redux';
-import { AppDispatch } from "@/state/redux/store";
 
-export default function Login(){
+import { useLogin } from "./useLogin"
 
-    const nameInputRef = useRef<HTMLInputElement>(null);
-    const [userName, setUserName] = useState("");
-    const [password, setPassowrd] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const router = useRouter();
-    const dispatch = useDispatch<AppDispatch>();
 
-    useEffect(()=> {
-        
-        nameInputRef.current?.focus();
+export default function Login() {
 
-    }, [])
+    const { nameInputRef,
+        userName,
+        setUserName,
+        password,
+        setPassowrd,
+        errorMessage,
+        handleLogin } = useLogin()
 
-    async function handleLogin(e: MouseEvent<HTMLButtonElement>){
-
-        e.preventDefault();
-        //console.log(nameInputRef.current.value)
-        if(userName && password){
-            
-
-            const url = "http://localhost:9000/login";
-            // axios
-            //     .post(url, {name: userName, password})
-            //     //.then((successCallback, errorCallback)    
-            //     .then((response)=> {
-            //         console.log("success", response)
-            //     }, (errorResponse) => {
-            //         console.log("errorResponse", errorResponse);
-            //     })
-
-            try {
-                
-                const response =  await axios.post<{accessToken: string, refreshToken: string}>(url, {name: userName, password});
-                console.log("success", response);
-                setErrorMessage("");
-                dispatch({type: "logged_in", payload: {isAuthenticated: true, userName, 
-                                                        accessToken: response.data.accessToken, refreshToken: response.data.refreshToken }})
-
-                router.push("/");
-
-            } catch (errorResponse) {
-                console.log("errorResponse", errorResponse);
-                setErrorMessage("Invalid credentials");
-                dispatch({type:"logged_out"})
-            }
-            
-
-        }
-        else{
-            setErrorMessage("Enter the credentials");
-        }
-    }
 
     return (
 
@@ -71,16 +25,16 @@ export default function Login(){
 
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input ref={nameInputRef} className="form-control" type="text" id="name" 
-                                    value={userName} onChange={e => setUserName(e.target.value)}/>
+                    <input ref={nameInputRef} className="form-control" type="text" id="name"
+                        value={userName} onChange={e => setUserName(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="pwd">Pasword</label>
-                    <input className="form-control" type="password" id="pwd" 
-                                    value={password} onChange={e => setPassowrd(e.target.value)}/>
+                    <input className="form-control" type="password" id="pwd"
+                        value={password} onChange={e => setPassowrd(e.target.value)} />
                 </div>
 
-                <br/>
+                <br />
 
                 <button className="btn btn-success" onClick={handleLogin}>Login</button>
 
