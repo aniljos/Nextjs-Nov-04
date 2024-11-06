@@ -2,6 +2,8 @@
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { useRouter } from "next/navigation";
+import {useDispatch} from 'react-redux';
+import { AppDispatch } from "@/state/redux/store";
 
 export default function Login(){
 
@@ -10,6 +12,7 @@ export default function Login(){
     const [password, setPassowrd] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(()=> {
         
@@ -36,14 +39,18 @@ export default function Login(){
 
             try {
                 
-                const response =  await axios.post(url, {name: userName, password});
+                const response =  await axios.post<{accessToken: string, refreshToken: string}>(url, {name: userName, password});
                 console.log("success", response);
                 setErrorMessage("");
+                dispatch({type: "logged_in", payload: {isAuthenticated: true, userName, 
+                                                        accessToken: response.data.accessToken, refreshToken: response.data.refreshToken }})
+
                 router.push("/");
 
             } catch (errorResponse) {
                 console.log("errorResponse", errorResponse);
                 setErrorMessage("Invalid credentials");
+                dispatch({type:"logged_out"})
             }
             
 

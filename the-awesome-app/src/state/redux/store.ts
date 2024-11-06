@@ -11,6 +11,14 @@ const combinedReducer = combineReducers({
 
 //store
 export const store = configureStore({
-    reducer: combinedReducer
+    reducer: combinedReducer,
+    devTools: true
 });
+
+
+// export the data type of the state
+export type AppState = ReturnType<typeof store.getState>;
+
+// export the signature of the dispath method
+export type AppDispatch = typeof store.dispatch;
 

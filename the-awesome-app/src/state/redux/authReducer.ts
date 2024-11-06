@@ -15,13 +15,32 @@ const initialState: AuthState = {
 
 export type AuthAction = {
     type: string,
-    payload?: AuthState
+    payload?: AuthState,
+    token?: string
 }
 
-export const authReducer = (currentState=initialState, action: AuthAction) => {
+export const authReducer = (currentState=initialState, action: AuthAction): AuthState | undefined=> {
 
-    console.log("authReducer action", action);
+    
     //return the updated state;
+    // Action: {type: 'logged_in', payload: {isAuthenticated: true, userName:"", accessToken: "", refershToken: ""}}
+    // Action: {type: "logged_out"}
+    // Action: {type: "update_access_token", token: ""}
+
+    if(action.type === "logged_in"){
+
+        return action.payload;
+    }
+    if(action.type === "logged_out"){
+        
+        return initialState;
+    }
+    if(action.type === "update_access_token" && action.token){
+        return {
+            ...currentState,
+            accessToken: action.token
+        }
+    }
     return currentState;
 
 }

@@ -5,14 +5,19 @@ import axios from "axios";
 import { Product } from "@/model/Product";
 import classes from './page.module.css';
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { AppState } from "@/state/redux/store";
 
 
-const baseUrl = "http://localhost:9000/products";
+//const baseUrl = "http://localhost:9000/products";
+const baseUrl = "http://localhost:9000/secure_products";
 
 export default function ListProducts() {
 
     const [products, setProducts] = useState<Product[]>([]);
     const router = useRouter();
+
+    const auth = useSelector((reduxState: AppState) => reduxState.auth);
 
     useEffect(() => {
 
@@ -23,7 +28,13 @@ export default function ListProducts() {
 
         try {
 
-            const response = await axios.get<Product[]>(baseUrl);
+            if(!auth?.isAuthenticated){
+                router.push("/login");
+                return;
+            }
+
+            const headers = {Authorization: `Bearer ${auth.accessToken}`};
+            const response = await axios.get<Product[]>(baseUrl, {headers});
             console.log(response);
             setProducts(response.data);
 
@@ -37,8 +48,13 @@ export default function ListProducts() {
 
         try {
             
+            if(!auth?.isAuthenticated){
+                return;
+            }
+
+            const headers = {Authorization: `Bearer ${auth.accessToken}`};
             const url = baseUrl + "/" + product.id;
-            await axios.delete(url);
+            await axios.delete(url, {headers});
             //await fetchProducts();
             //copy of products
             const copy_of_products = [...products];
