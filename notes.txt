@@ -25,6 +25,19 @@ props
 	props is always an object
 	In Typescript we define the structure on the props: type, interface, class
 	
+	<Message text="abc"/>
+	
+	<Message text="abc">
+		<p>xyz</p>
+	</Message>
+	
+	function Message(props){
+	function Message({text, children}){
+	
+		props.text ==> "abc"
+		props.children ==> <p>xyz</p>
+	}
+	
 event handling
 	html
 		<button onclick="foo();"></button>
@@ -199,6 +212,22 @@ ListCustomers(server)
 				--return is JSX
 		- JSX is converted HTML
 	-response from the server is the generated HTML(no js)
+	
+	
+Server Components
+	- Session specific data on the server(accessToken)
+		- Redis cache, temp db
+		
+	- SSR
+		1. disable the cache:  const response = await fetch(url, {cache: 'no-store'});
+		2. dynamic paramerters
+		3. Always use a non-get(post)
+		
+Nodejs
+	- Building javascript application on the server
+	- API layer or Web application : Node Express, Nextjs
+	
+		
 	
 
 	
