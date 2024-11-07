@@ -177,6 +177,29 @@ Optimization & Design
 					It rerenders the component if the component's state or props change.
 	3. useCallback: memoized copy of a callback(passes as a prop to component).
 	4. useMemo: memoized copy of a value.
+	5. Virtaul DOM.
+	6. Reuse: 
+		Higher-order component(HOC) - functions that return a component and provides some feature/behavior
+		Custom Hooks: limited to functional components
+	7. Custom Hooks: Reuse some behavior implemented using one or more hooks.
+	8. HOC: Component composition
+	
+ListProduct(client)
+	-request is to fetch the page(static html/css/...)
+	-render the component to the browser
+	- request to fetch the products(useEffect => mount)
+	- products updated to the ui(excutes some js)
+	
+	
+ListCustomers(server)
+	--request is to fetch the page(static html/css/...)
+		-reaches the server	
+		-invokes the js in the component	
+				-- invokes an API
+				--return is JSX
+		- JSX is converted HTML
+	-response from the server is the generated HTML(no js)
+	
 
 	
 
