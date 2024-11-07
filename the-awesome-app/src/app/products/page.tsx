@@ -11,8 +11,8 @@ import ProductView from "@/components/ProductView";
 import { useTitle } from "@/hooks/useTitle";
 
 
-const baseUrl = "http://localhost:9000/products";
-//const baseUrl = "http://localhost:9000/secure_products";
+//const baseUrl = "http://localhost:9000/products";
+const baseUrl = "http://localhost:9000/secure_products";
 
 
 
@@ -35,10 +35,10 @@ export default function ListProducts() {
 
         try {
 
-            // if(!auth?.isAuthenticated){
-            //     router.push("/login");
-            //     return;
-            // }
+            if(!auth?.isAuthenticated){
+                router.push("/login");
+                return;
+            }
 
             const headers = {Authorization: `Bearer ${auth.accessToken}`};
             const response = await axios.get<Product[]>(baseUrl, {headers});
@@ -55,9 +55,9 @@ export default function ListProducts() {
 
         try {
             
-            // if(!auth?.isAuthenticated){
-            //     return;
-            // }
+            if(!auth?.isAuthenticated){
+                return;
+            }
 
             const headers = {Authorization: `Bearer ${auth.accessToken}`};
             const url = baseUrl + "/" + product.id;

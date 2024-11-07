@@ -1,15 +1,41 @@
 import { Customer } from "@/model/Customer";
+import Link from "next/link";
+import { Suspense } from "react";
 
 
 export default async function ListCustomers(){
 
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
-    await new Promise(resolve => setTimeout(resolve, 7000));
+    return (
+        <div>
+            <h4>Customers</h4>
+            <p>This demonstates suspense and streaming</p>
+
+            <Suspense fallback={<div className="alert alert-warning">Loading ViewCustomers loading...</div>}>
+                <ViewCustomers interval={7000}/>
+            </Suspense>
+
+            <Suspense fallback={<div className="alert alert-warning">Loading ViewCustomers loading...</div>}>
+                <ViewCustomers interval={10000}/>
+            </Suspense>
+        </div>
+    )
+    
+}
+
+type ViewCustomersProps = {
+    interval: number
+}
+
+async function ViewCustomers(props: ViewCustomersProps){
+
+    await new Promise(resolve => setTimeout(resolve, props.interval));
     
     const url = "http://localhost:9000/customers";
-    const response = await fetch(url);
+    const response = await fetch(url, {cache: 'no-store'});
     const customers = await response.json() as Customer[];
-    console.log("customers ", customers) ;
+    console.log("customers ", customers);
 
     return (
         <div>
@@ -26,9 +52,9 @@ export default async function ListCustomers(){
                 <tbody>
                     {customers.map(item => {
                         return (
-                            <tr>
+                            <tr key={item.id}>
                                 <td>{item.id}</td>
-                                <td>{item.name}</td>
+                                <td><Link href={`/customers/${item.id}`}>{item.name}</Link></td>
                                 <td>{item.location}</td>
                             </tr>
                         )

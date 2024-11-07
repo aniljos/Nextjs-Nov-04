@@ -1,9 +1,12 @@
 import React from "react"
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function withBorder(Component: any){
 
     //return a new component
+  
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function withBorderHOC(props: any){
 
         return (
