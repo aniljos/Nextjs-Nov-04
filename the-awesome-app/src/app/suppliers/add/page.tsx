@@ -1,12 +1,19 @@
 'use client'
 
 import { useFormState } from "react-dom";
-import { handleSupplierSubmit } from "@/actions/actions";
+import { handleSupplierSubmit, sayHello } from "@/actions/actions";
+import { ChangeEvent, useState } from "react";
 
 export default function AddSupplierPage(){
 
     const [state, formAction] =  useFormState(handleSupplierSubmit, {status: -1, message: ""});
-
+    const [nameResult, setNameResult] = useState("");
+    
+    async function handleNameChange(e: ChangeEvent<HTMLInputElement>){
+        const name = e.target.value;
+        const result = await sayHello(name);
+        setNameResult(result);
+    }
     return (
         <div>
             <h4>Add Supplier</h4>
@@ -23,7 +30,8 @@ export default function AddSupplierPage(){
                 </div>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input id="name" name="name" className="form-control" />
+                    <input id="name" name="name" className="form-control" onChange={handleNameChange}/>
+                    <p>{nameResult}</p>
                 </div>
                 <div className="form-group">
                     <label htmlFor="location">Location</label>

@@ -227,6 +227,15 @@ Nodejs
 	- Building javascript application on the server
 	- API layer or Web application : Node Express, Nextjs
 	
+	
+React
+	-Hooks: useImperativeHandle, useReducer
+	-React.forwardRef
+	
+	-Error Boundaries - client 
+		-Exception handlers 
+	
+	
 		
 	
 

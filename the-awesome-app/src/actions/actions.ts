@@ -26,3 +26,8 @@
     }
 
 }
+
+
+export async function sayHello(message : string){
+    return "Hello " + message;
+}

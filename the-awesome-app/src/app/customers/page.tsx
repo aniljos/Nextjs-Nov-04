@@ -1,7 +1,12 @@
 import { Customer } from "@/model/Customer";
+import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const metadata: Metadata = {
+    title: "Next React Customers",
+    
+  };
 
 export default async function ListCustomers(){
 
@@ -28,9 +33,9 @@ type ViewCustomersProps = {
     interval: number
 }
 
-async function ViewCustomers(props: ViewCustomersProps){
+export async function ViewCustomers(props: ViewCustomersProps){
 
-    await new Promise(resolve => setTimeout(resolve, props.interval));
+    //await new Promise(resolve => setTimeout(resolve, props.interval));
     
     const url = "http://localhost:9000/customers";
     const response = await fetch(url, {cache: 'no-store'});

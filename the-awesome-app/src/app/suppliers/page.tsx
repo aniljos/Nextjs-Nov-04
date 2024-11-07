@@ -2,9 +2,9 @@
 import Link from "next/link";
 import SupplierSearchPage from "./SupplierSearchPage";
 
-export default async function SupplierPage() {
 
-    
+//http://localhost:3000/suppliers
+export default async function SupplierPage() {
 
     return (
 

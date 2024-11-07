@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Next React About",
+};
+
 function AboutPage(){
     return (
         <div>
